@@ -16,9 +16,9 @@ glist <- list.files(pattern="tif", full.names=T)
 grids <- stack(glist)
 
 # load GeoSurvey data
-download.file("https://www.dropbox.com/s/skdinhb5iing6mg/TZ_geos_012015.csv?dl=0", "./TZ_geos_012015.csv", mode= "wb")
+download.file("https://www.dropbox.com/s/339k17oic3n3ju6/TZ_geos_012015.csv?dl=0", "./TZ_geos_012015.csv", mode= "wb")
 geo <- read.table("TZ_geos_012015.csv", header=T, sep=",")
-plot(geo$Lon,geos$Lat, cex=0.01)
+plot(geo$Lon,geo$Lat, cex=0.01)
 geo.proj <- as.data.frame(project(cbind(geo$Lon, geo$Lat), "+proj=laea +ellps=WGS84 +lon_0=20 +lat_0=5 +units=m +no_defs"))
 colnames(geo.proj) <- c("x","y") ## laea coordinates
 geo <- cbind(geo, geo.proj)
