@@ -60,6 +60,9 @@ mob_val <- mob[-mobIndex,] ## random 25% for validation
 write.csv(mob_cal, "mob_cal.csv", row.names=F)
 write.csv(mob_val, "mob_val.csv", row.names=F)
 
+# Remove extraneous objects from memory -----------------------------------
+rm(list=setdiff(ls(), c("mob", "mob_cal", "mob_val", "grids")))
+
 
 
 
