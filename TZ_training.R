@@ -45,16 +45,16 @@ colnames(mob.proj) <- c("x","y") ## laea coordinates
 mob <- cbind(mob, mob.proj) ## bind laea coordinates to mob dataframe
 coordinates(mob) <- ~x+y ## create spatial points object
 projection(mob) <- projection(grids) ## set coordinate reference system
-mobgrd <- extract(grids, mob) ## extract gridded variables
+mobgrd <- extract(grids, mob) ## extract gridded variables @ point locations
 mobgrd <- as.data.frame(mobgrd) ## convert back to a dataframe
-mob <- cbind.data.frame(mob, mobgrd) ## combine gridded variable with points in a dataframe
+mob <- cbind.data.frame(mob, mobgrd) ## bind points with gridded variables in a dataframe
 mob <- unique(na.omit(mob)) ## dataframe now includes only unique & complete MobileSurvey records
 
 # Train/Test set partition ------------------------------------------------
 set.seed(1385321)
-mobIndex <- createDataPartition(mob$Lon, p = 3/4, list = FALSE, times = 1)
-mob_cal <- mob[ mobIndex,] ## random 75% for calibration
-mob_val <- mob[-mobIndex,] ## random 25% for validation
+mobIndex <- createDataPartition(mob$Lon, p = 3/4, list = FALSE, times = 1) ## specify sampling index
+mob_cal <- mob[ mobIndex,] ## random 75% for calibration ## draw a calibration sample
+mob_val <- mob[-mobIndex,] ## random 25% for validation  ## use the rest as validation sample
 
 # Write data files --------------------------------------------------------
 write.csv(mob_cal, "mob_cal.csv", row.names=F)
