@@ -1,4 +1,4 @@
-# Script for loading mobile survey and Tanzania grids
+# Script for loading Tanzania mobile survey and grids
 # code written by ... February 2017
 
 install.packages("downloader","rgdal","raster", dependencies = T) ## install package to download data
@@ -32,6 +32,6 @@ geo <- unique(na.omit(geo)) ## includes only unique & complete records
 download.file("https://www.dropbox.com/s/02g8dmzvr18nyx3/Crop_TZ_JAN_2017.csv.zip?dl=0","Crop_TZ_JAN_2017.csv.zip", mode="wb")
 unzip("Crop_TZ_JAN_2017.csv.zip", overwrite=T)
 mob <- read.table("Crop_TZ_JAN_2017.csv", header=T, sep=",")
-
-
-
+mob <- mob[c(1:2,16,19)] ## select only the needed data columns
+colnames(mob) <- c("Lat", "Lon", "CRP", "MZP") ## adjust long names, CRP = cropland present?, MZP = maize present?
+table(mob$CRP, mob$MZP) ## cross-tabulate maize by cropland as a simple check on the data 
