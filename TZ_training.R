@@ -11,13 +11,13 @@ require(rgdal)
 dir.create("data", showWarnings=F)
 setwd("./data")
 
-# load TZ 1K grids
+# Load TZ 1K grids
 download("https://www.dropbox.com/s/nnoehn7wbwtqvk7/TZ_grids1k.zip?dl=0", "TZ_grids1k.zip",  mode="wb")
 unzip("TZ_grids1k.zip", overwrite=T)
 glist <- list.files(pattern="tif", full.names=T)
 grids <- stack(glist)
 
-# load GeoSurvey data ... not run
+# Load GeoSurvey data ... not run
 # download.file("https://www.dropbox.com/s/339k17oic3n3ju6/TZ_geos_012015.csv?dl=0", "TZ_geos_012015.csv", mode= "wb")
 # geo <- read.table("TZ_geos_012015.csv", header=T, sep=",")
 # geo.proj <- as.data.frame(project(cbind(geo$Lon, geo$Lat), "+proj=laea +ellps=WGS84 +lon_0=20 +lat_0=5 +units=m +no_defs"))
@@ -47,7 +47,7 @@ projection(mob) <- projection(grids) ## set coordinate reference system
 mobgrd <- extract(grids, mob) ## extract gridded variables
 mobgrd <- as.data.frame(mobgrd) ## convert back to a dataframe
 mob <- cbind.data.frame(mob, mobgrd) ## combine gridded variable with points in a dataframe
-mob <- unique(na.omit(mob)) ## includes only unique & complete MobileSurvey records
+mob <- unique(na.omit(mob)) ## dataframe now includes only unique & complete MobileSurvey records
 
 
 
