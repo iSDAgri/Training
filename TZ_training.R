@@ -1,4 +1,4 @@
-# Script for loading Tanzania mobile survey and grids
+# Script for loading Tanzania mobile survey and grided covariates
 # code written by ... February 2017
 
 # install.packages("downloader","rgdal","raster", dependencies = T) ## install package to download data
@@ -39,9 +39,9 @@ colnames(mob) <- c("Lat", "Lon", "CRP", "MZP") ## adjust long names, CRP = cropl
 table(mob$CRP, mob$MZP) ## cross-tabulate maize by cropland as a simple check on the data
 
 # Georeference MobileSurvey data and extract gridded variables
-mob.proj <- as.data.frame(project(cbind(geo$Lon, geo$Lat), "+proj=laea +ellps=WGS84 +lon_0=20 +lat_0=5 +units=m +no_defs"))
+mob.proj <- as.data.frame(project(cbind(mob$Lon, mob$Lat), "+proj=laea +ellps=WGS84 +lon_0=20 +lat_0=5 +units=m +no_defs"))
 colnames(mob.proj) <- c("x","y") ## laea coordinates
-mob <- cbind(mob, mob.proj) ##
+mob <- cbind(mob, mob.proj) ## bind laea coordinates to mob dataframe
 coordinates(mob) <- ~x+y ## create spatial points object
 projection(mob) <- projection(grids) ## set coordinate reference system
 mobgrd <- extract(grids, mob) ## extract gridded variables
