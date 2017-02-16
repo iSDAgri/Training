@@ -1,10 +1,11 @@
-# Script for loading Tanzania mobile survey and grided covariates
+# Script for loading Tanzania mobile survey and gridded covariates
 # code written by ... February 2017
 
-# install.packages("downloader","rgdal","raster", dependencies = T) ## install package to download data
+# install.packages("downloader","rgdal","raster","caret", dependencies = T) ## install package to download data
 require(downloader)
 require(raster)
 require(rgdal)
+require(caret)
 
 # Data setup --------------------------------------------------------------
 # Create a data folder in your current working directory
@@ -48,6 +49,17 @@ mobgrd <- extract(grids, mob) ## extract gridded variables
 mobgrd <- as.data.frame(mobgrd) ## convert back to a dataframe
 mob <- cbind.data.frame(mob, mobgrd) ## combine gridded variable with points in a dataframe
 mob <- unique(na.omit(mob)) ## dataframe now includes only unique & complete MobileSurvey records
+
+# Train/Test set partition ------------------------------------------------
+set.seed(1385321)
+mobIndex <- createDataPartition(mob$Lon, p = 3/4, list = FALSE, times = 1)
+mob_cal <- mob[ mobIndex,] ## random 75% for calibration
+mob_val <- mob[-mobIndex,] ## random 25% for validation
+
+# Write data files --------------------------------------------------------
+write.csv(mob_cal, "mob_cal.csv", row.names=F)
+write.csv(mob_val, "mob_val.csv", row.names=F)
+
 
 
 
