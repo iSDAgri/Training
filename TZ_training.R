@@ -1,5 +1,5 @@
-# Script for loading Tanzania mobile survey and gridded covariates
-# code written by ... February 2017
+#' Script for loading Tanzania mobile survey and gridded covariates
+#' M. Walsh & A. Verlinden, February 2017
 
 # install.packages("downloader","rgdal","raster","caret", dependencies = T) ## only need to run this once
 require(downloader)
