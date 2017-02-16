@@ -1,7 +1,7 @@
 # Script for loading Tanzania mobile survey and gridded covariates
 # code written by ... February 2017
 
-# install.packages("downloader","rgdal","raster","caret", dependencies = T) ## install package to download data
+# install.packages("downloader","rgdal","raster","caret", dependencies = T) ## only need to run this once
 require(downloader)
 require(raster)
 require(rgdal)
@@ -62,10 +62,3 @@ write.csv(mob_val, "mob_val.csv", row.names=F)
 
 # Remove extraneous objects from memory -----------------------------------
 rm(list=setdiff(ls(), c("mob", "mob_cal", "mob_val", "grids")))
-
-
-
-
-
-
-
