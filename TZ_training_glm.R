@@ -47,5 +47,5 @@ print(mob.glm)
 mob.imp <- varImp(mob.glm)
 plot(mob.imp, top=25, col="black", cex=1.3, xlab="Variable importance", cex.lab=1.5)
 mob_pred <- predict(grids, mob.glm, type="prob") ## spatial predictions
-plot(1-mob_pred)
+plot(1-mob_pred, axes=F) ## initial map
 
