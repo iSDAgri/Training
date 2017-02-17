@@ -18,9 +18,9 @@ suppressPackageStartupMessages({
 # source_url(SourceURL)
 
 # Data setup --------------------------------------------------------------
-# Labels
-PAt <- mob_cal$MZP
-PAv <- mob_val$MZP
+# Select labels
+PAt <- mob_cal$CRP
+PAv <- mob_val$CRP
 
 # Features
 grdt <- mob_cal[8:33] ## gridded variables for model calibration
@@ -44,6 +44,8 @@ mob.glm <- train(grdt, PAt,
                  metric = "ROC",
                  trControl = tc)
 print(mob.glm)
-mob.imp <- varImp(wet.glm)
+mob.imp <- varImp(mob.glm)
 plot(mob.imp, top=25, col="black", cex=1.3, xlab="Variable importance", cex.lab=1.5)
-mob_pred <- predict(grids, mob.glm)
+mob_pred <- predict(grids, mob.glm, type="prob") ## spatial predictions
+plot(1-mob_pred)
+
