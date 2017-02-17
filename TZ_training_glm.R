@@ -19,8 +19,8 @@ suppressPackageStartupMessages({
 
 # Data setup --------------------------------------------------------------
 # Select labels
-PAt <- mob_cal$CRP
-PAv <- mob_val$CRP
+PAt <- mob_cal$MZP
+PAv <- mob_val$MZP
 
 # Features
 grdt <- mob_cal[8:33] ## gridded variables for model calibration
