@@ -48,7 +48,7 @@ print(mob.glm)
 mob.imp <- varImp(mob.glm)
 plot(mob.imp, top=25, col="black", cex=1.3, xlab="Variable importance", cex.lab=1.5)
 mob_glm <- predict(grids, mob.glm, type="prob") ## spatial predictions
-plot(1-mob_glm, axes=F) ## probaility map plot
+plot(1-mob_glm, axes=F) ## probability map plot
 
 stopCluster(mc)
 
@@ -73,4 +73,7 @@ print(mob.rf)
 mob.imp <- varImp(mob.rf)
 plot(mob.imp, top=25, col="black", cex=1.3, xlab="Variable importance", cex.lab=1.5)
 mob_rf <- predict(grids, mob.rf, type="prob") ## spatial predictions
-plot(1-mob_rf, axes=F) ## probaility map plot
+plot(1-mob_rf, axes=F) ## probability map plot
+
+stopCluster(mc)
+
